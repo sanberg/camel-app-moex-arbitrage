@@ -18,7 +18,10 @@ public class MainApp {
         //main.configure().addRoutesBuilder(new MyTestTimerRouteBuilder());
         //timer to log
         //main.configure().addRoutesBuilder(new MyTimerToLogRouteBuilder());
-        main.configure().addRoutesBuilder(new WssConsumerMOEXRouteBuilder("BIDU-RM"));
+        //main.configure().addRoutesBuilder(new WssConsumerMOEXRouteBuilder());
+        //main.configure().addRoutesBuilder(new WssOrderBookSubsctiptionByTicker("BIDU"));
+        main.configure().addRoutesBuilder(new AlorTokenRouteBuilder());
+        
         main.run(args);
     }
 

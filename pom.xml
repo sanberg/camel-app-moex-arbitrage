@@ -15,6 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <log4j2-version>2.13.3</log4j2-version>
+    <camel.version>3.13.0</camel.version>
   </properties>
 
   <dependencyManagement>
@@ -23,7 +24,7 @@
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-bom</artifactId>
-        <version>3.13.0</version>
+        <version>${camel.version}</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -31,34 +32,40 @@
   </dependencyManagement>
 
   <dependencies>
-
-    <!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
-    <dependency>
-      <groupId>com.squareup.okhttp</groupId>
-      <artifactId>okhttp</artifactId>
-      <version>2.7.5</version>
-    </dependency>
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20180813</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-http</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
+      <version>${camel.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-main</artifactId>
+      <version>${camel.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-ahc-ws</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jackson</artifactId>
+      <version>${camel.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jsonpath</artifactId>
+      <version>${camel.version}</version>
     </dependency>
 
     <!-- logging -->
@@ -73,6 +80,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test</artifactId>
+      <version>${camel.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
