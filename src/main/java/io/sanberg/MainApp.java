@@ -12,16 +12,11 @@ public class MainApp {
      */
     public static void main(String... args) throws Exception {
         Main main = new Main();
-        //file xpath checker
-        //main.configure().addRoutesBuilder(new MyRouteBuilder());
-        //timer
-        //main.configure().addRoutesBuilder(new MyTestTimerRouteBuilder());
-        //timer to log
-        //main.configure().addRoutesBuilder(new MyTimerToLogRouteBuilder());
+        AlorTokenManagerRouteBuilder alorTokenManagerRouteBuilder = new AlorTokenManagerRouteBuilder();
+        main.configure().addRoutesBuilder(alorTokenManagerRouteBuilder);
+        main.bind("alorToken", alorTokenManagerRouteBuilder);
         main.configure().addRoutesBuilder(new WssOrderBookSubscriptionByTicker());
         main.configure().addRoutesBuilder(new WssConsumerMOEXRouteBuilder());
-        //main.configure().addRoutesBuilder(new AlorTokenRouteBuilder());
-        
         main.run(args);
     }
 
