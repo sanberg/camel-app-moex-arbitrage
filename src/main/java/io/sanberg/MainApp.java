@@ -15,8 +15,13 @@ public class MainApp {
         AlorTokenManagerRouteBuilder alorTokenManagerRouteBuilder = new AlorTokenManagerRouteBuilder();
         main.configure().addRoutesBuilder(alorTokenManagerRouteBuilder);
         main.bind("alorToken", alorTokenManagerRouteBuilder);
+        StocksDataMap stocksDataMap = new StocksDataMap();
+        main.bind("stocksDataMap", stocksDataMap);
         main.configure().addRoutesBuilder(new WssOrderBookSubscriptionByTicker());
+        main.configure().addRoutesBuilder(new AlpacaConsumerUSRouteBuilder());
         main.configure().addRoutesBuilder(new WssConsumerMOEXRouteBuilder());
+        main.configure().addRoutesBuilder(new AlpacaSubscriptionByTickerRouteBuilder());
+
         main.run(args);
     }
 

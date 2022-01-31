@@ -21,7 +21,5 @@ public class WssOrderBookSubscriptionByTicker extends RouteBuilder {
                             "}"))
                     .to("ahc-wss://api.alor.ru/ws");
         }
-
-
     }
 }
