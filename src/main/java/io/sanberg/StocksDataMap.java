@@ -3,7 +3,11 @@ package io.sanberg;
 import java.util.HashMap;
 
 public class StocksDataMap {
-    private HashMap<String, StockData> stockDataHashMap;
+    private final HashMap<String, StockData> stockDataHashMap;
+
+    public StocksDataMap() {
+        this.stockDataHashMap = new HashMap<>();
+    }
 
     public int put(String ticker, StockData stockData) {
         try {
@@ -14,11 +18,12 @@ public class StocksDataMap {
         return 0;
     }
 
-    public int putSpbQouteData(String ticker, AlorQuoteData alorQuoteData) {
+    public int putSpbQouteData(AlorQuoteData alorQuoteData) {
         try {
             AlorQuoteData.Bid bid =  alorQuoteData.getData().getBids().get(0);
             AlorQuoteData.Ask ask = alorQuoteData.getData().getAsks().get(0);
-            StockData stockData = stockDataHashMap.get(ticker);
+            String ticker = alorQuoteData.getGuid();
+            StockData stockData = stockDataHashMap.get(ticker) == null ? new StockData() : stockDataHashMap.get(ticker);
             stockData.setSpbBid(bid.getPrice());
             stockData.setSpbBidVolume(bid.getVolume());
             stockData.setSpbAsk(ask.getPrice());

@@ -20,9 +20,8 @@ public class WssConsumerMOEXRouteBuilder extends RouteBuilder {
                                 return alorQuoteData.getData().getBids().size() != 0
                                         && alorQuoteData.getData().getAsks().size() != 0;
                             })
-                                .log("write to hashmap: ${body}")
-                                .bean("stocksDataMap", "putSpbQouteData")
-                                .log("status: ${body}")
+                                //.log("write to hashmap: ${body}")
+                                .to("bean:stocksDataMap?method=putSpbQouteData(${body})")
                             .otherwise()
                                 .log("received from socket: ${body}")
                         .endChoice()

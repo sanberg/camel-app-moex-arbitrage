@@ -12,6 +12,8 @@ public class StockData {
     public double usAsk;
     public int usAskVolume;
 
+    public StockData() {
+    }
 
     public double getSpbLastTrade() {
         return spbLastTrade;

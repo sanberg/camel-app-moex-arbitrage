@@ -41,6 +41,14 @@ public class AlorQuoteData {
         public void setVolume(int volume) {
             this.volume = volume;
         }
+
+        @Override
+        public String toString() {
+            return "Ask{" +
+                    "price=" + price +
+                    ", volume=" + volume +
+                    '}';
+        }
     }
 
     static class Bid {
@@ -61,6 +69,14 @@ public class AlorQuoteData {
 
         public void setVolume(int volume) {
             this.volume = volume;
+        }
+
+        @Override
+        public String toString() {
+            return "Bid{" +
+                    "price=" + price +
+                    ", volume=" + volume +
+                    '}';
         }
     }
 
