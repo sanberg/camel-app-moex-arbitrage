@@ -91,4 +91,8 @@ public class StocksDataMap {
                 "stockDataHashMap=" + stockDataHashMap +
                 '}';
     }
+
+    public HashMap<String, StockData> getStockDataHashMap() {
+        return stockDataHashMap;
+    }
 }
