@@ -12,17 +12,21 @@ public class MainApp {
      */
     public static void main(String... args) throws Exception {
         Main main = new Main();
-        //AlorTokenManagerRouteBuilder alorTokenManagerRouteBuilder = new AlorTokenManagerRouteBuilder();
-        //main.configure().addRoutesBuilder(alorTokenManagerRouteBuilder);
-        //main.bind("alorToken", alorTokenManagerRouteBuilder);
+        //Alor
+        AlorTokenManagerRouteBuilder alorTokenManagerRouteBuilder = new AlorTokenManagerRouteBuilder();
+        main.configure().addRoutesBuilder(alorTokenManagerRouteBuilder);
+        main.bind("alorToken", alorTokenManagerRouteBuilder);
         StocksDataMap stocksDataMap = new StocksDataMap();
         main.bind("stocksDataMap", stocksDataMap);
-        //main.configure().addRoutesBuilder(new WssOrderBookSubscriptionByTicker());
-        MyCustomAsyncHttpClientImpl myCustomAsyncHttpClientImpl = new MyCustomAsyncHttpClientImpl();
-        main.bind("myCustomAsyncHttpClientImpl", myCustomAsyncHttpClientImpl);
-        main.configure().addRoutesBuilder(new AlpacaConsumerUSRouteBuilder());
-        //main.configure().addRoutesBuilder(new WssConsumerMOEXRouteBuilder());
-        main.configure().addRoutesBuilder(new AlpacaSubscriptionByTickerRouteBuilder());
+        main.configure().addRoutesBuilder(new AlorQuoteDataMOEXSubscribeByTickerRouteBuilder());
+        main.configure().addRoutesBuilder(new AlorQuoteDataSPBSubscribeByTickerRouteBuilder());
+        main.configure().addRoutesBuilder(new AlorQuoteDataConsumerRouteBuilder());
+        main.configure().addRoutesBuilder(new TelegramArbitrageNotifierRouteBuilder());
+        //Alpaca
+        //MyCustomAsyncHttpClientImpl myCustomAsyncHttpClientImpl = new MyCustomAsyncHttpClientImpl();
+        //main.bind("myCustomAsyncHttpClientImpl", myCustomAsyncHttpClientImpl);
+        //main.configure().addRoutesBuilder(new AlpacaConsumerUSRouteBuilder());
+        //main.configure().addRoutesBuilder(new AlpacaSubscriptionByTickerRouteBuilder());
 
         main.run(args);
     }

@@ -1,9 +1,12 @@
 package io.sanberg;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class StocksDataMap {
     private final HashMap<String, StockData> stockDataHashMap;
+    private double usdRub;
 
     public StocksDataMap() {
         this.stockDataHashMap = new HashMap<>();
@@ -18,16 +21,28 @@ public class StocksDataMap {
         return 0;
     }
 
-    public int putSpbQouteData(AlorQuoteData alorQuoteData) {
+    public double getUsdRub() {
+        return usdRub;
+    }
+
+    public void setUsdRub(double usdRub) {
+        this.usdRub = usdRub;
+    }
+
+    public void updateUsdRub(AlorQuoteData alorQuoteData) {
+        setUsdRub(alorQuoteData.getData().getLast_price());
+    }
+
+    public int putMskQuoteData(AlorQuoteData alorQuoteData) {
         try {
-            AlorQuoteData.Bid bid =  alorQuoteData.getData().getBids().get(0);
-            AlorQuoteData.Ask ask = alorQuoteData.getData().getAsks().get(0);
-            String ticker = alorQuoteData.getGuid();
+            String ticker = alorQuoteData.getGuid().replace("-RM", "");
             StockData stockData = stockDataHashMap.get(ticker) == null ? new StockData() : stockDataHashMap.get(ticker);
-            stockData.setSpbBid(bid.getPrice());
-            stockData.setSpbBidVolume(bid.getVolume());
-            stockData.setSpbAsk(ask.getPrice());
-            stockData.setSpbAskVolume(bid.getVolume());
+            AlorQuoteData.Data data = alorQuoteData.getData();
+            stockData.setMskBid(data.getBid() / usdRub);
+            stockData.setMskBidVolume(data.getBid_vol());
+            stockData.setMskAsk(data.getAsk() / usdRub);
+            stockData.setMskAskVolume(data.getAsk_vol());
+            stockData.setMskLastTrade(data.getLast_price() / usdRub);
             stockDataHashMap.put(ticker, stockData);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -36,5 +51,44 @@ public class StocksDataMap {
         return 0;
     }
 
+    public int putSpbQuoteData(AlorQuoteData alorQuoteData) {
+        try {
+            String ticker = alorQuoteData.getGuid();
+            StockData stockData = stockDataHashMap.get(ticker) == null ? new StockData() : stockDataHashMap.get(ticker);
+            AlorQuoteData.Data data = alorQuoteData.getData();
+            stockData.setSpbBid(data.getBid());
+            stockData.setSpbBidVolume(data.getBid_vol());
+            stockData.setSpbAsk(data.getAsk());
+            stockData.setSpbAskVolume(data.getAsk_vol());
+            stockData.setSpbLastTrade(data.getLast_price());
+            stockDataHashMap.put(ticker, stockData);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        return 0;
+    }
+
+    public StocksDataMap scanForArbitrage() {
+        StocksDataMap resStocksDataMap = new StocksDataMap();
+        for (Map.Entry<String, StockData> entry : this.stockDataHashMap.entrySet()
+        ) {
+            if (entry.getValue().getMskAsk() < entry.getValue().getSpbBid()
+                    && (entry.getValue().getSpbBid() - entry.getValue().getMskAsk())
+                            / entry.getValue().getMskAsk() > 0.0003) {
+                resStocksDataMap.put(entry.getKey(), entry.getValue());
+            }
+            resStocksDataMap.put(entry.getKey(), entry.getValue()); //TODO Remove after testing
+        }
+        return resStocksDataMap;
+    }
     //public int putUsQuoteData(String ticker, )
+
+
+    @Override
+    public String toString() {
+        return "StocksDataMap{" +
+                "stockDataHashMap=" + stockDataHashMap +
+                '}';
+    }
 }

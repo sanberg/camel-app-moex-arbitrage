@@ -6,6 +6,11 @@ public class StockData {
     public int spbBidVolume;
     public double spbAsk;
     public int spbAskVolume;
+    public double mskLastTrade;
+    public double mskBid;
+    public int mskBidVolume;
+    public double mskAsk;
+    public int mskAskVolume;
     public double usLastTrade;
     public double usBid;
     public int usBidVolume;
@@ -107,5 +112,66 @@ public class StockData {
     public void updateUsQuotes(double usBid, double usAsk) {
         setUsBid(usBid);
         setUsAsk(usAsk);
+    }
+
+    public double getMskLastTrade() {
+        return mskLastTrade;
+    }
+
+    public void setMskLastTrade(double mskLastTrade) {
+        this.mskLastTrade = mskLastTrade;
+    }
+
+    public double getMskBid() {
+        return mskBid;
+    }
+
+    public void setMskBid(double mskBid) {
+        this.mskBid = mskBid;
+    }
+
+    public int getMskBidVolume() {
+        return mskBidVolume;
+    }
+
+    public void setMskBidVolume(int mskBidVolume) {
+        this.mskBidVolume = mskBidVolume;
+    }
+
+    public double getMskAsk() {
+        return mskAsk;
+    }
+
+    public void setMskAsk(double mskAsk) {
+        this.mskAsk = mskAsk;
+    }
+
+    public int getMskAskVolume() {
+        return mskAskVolume;
+    }
+
+    public void setMskAskVolume(int mskAskVolume) {
+        this.mskAskVolume = mskAskVolume;
+    }
+
+    @Override
+    public String toString() {
+        return "StockData{" +
+                "spbLastTrade=" + spbLastTrade +
+                ", spbBid=" + spbBid +
+                ", spbBidVolume=" + spbBidVolume +
+                ", spbAsk=" + spbAsk +
+                ", spbAskVolume=" + spbAskVolume +
+                ", mskLastTrade=" + mskLastTrade +
+                ", mskBid=" + mskBid +
+                ", mskBidVolume=" + mskBidVolume +
+                ", mskAsk=" + mskAsk +
+                ", mskAskVolume=" + mskAskVolume +
+                ", usLastTrade=" + usLastTrade +
+                ", usBid=" + usBid +
+                ", usBidVolume=" + usBidVolume +
+                ", usAsk=" + usAsk +
+                ", usAskVolume=" + usAskVolume +
+                '}';
     }
 }

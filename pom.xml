@@ -67,6 +67,11 @@
       <artifactId>camel-jsonpath</artifactId>
       <version>${camel.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-telegram</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
 
     <!-- logging -->
     <dependency>
