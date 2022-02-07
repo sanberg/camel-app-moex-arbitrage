@@ -19,7 +19,7 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
     LocalDateTime mskStart = LocalDateTime.parse(LocalDate.now() + "T07:00:00");
 
     @Override
-    public void configure() throws Exception {
+    public void configure() {
         from("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI")
                 .log("${header.CamelTelegramChatId}");
         from("timer:arbitrageScanner?period=10000")
