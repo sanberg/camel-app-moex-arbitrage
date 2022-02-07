@@ -78,7 +78,7 @@ public class StocksDataMap {
                             / entry.getValue().getMskAsk() > 0.0003) {
                 resStocksDataMap.put(entry.getKey(), entry.getValue());
             }
-            resStocksDataMap.put(entry.getKey(), entry.getValue()); //TODO Remove after testing
+            //resStocksDataMap.put(entry.getKey(), entry.getValue()); //TODO Remove after testing
         }
         return resStocksDataMap;
     }

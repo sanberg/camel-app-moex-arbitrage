@@ -10,23 +10,23 @@ public class AlorQuoteData {
         public String symbol;
         public String exchange;
         public String description;
-        public int prev_close_price;
-        public int last_price;
+        public double prev_close_price;
+        public double last_price;
         public int last_price_timestamp;
-        public int change;
+        public double change;
         public double change_percent;
-        public int high_price;
-        public int low_price;
+        public double high_price;
+        public double low_price;
         public int accruedInt;
         public int accrued_interest;
         public int volume;
         public String open_interest;
-        public int ask;
-        public int bid;
+        public double ask;
+        public double bid;
         public int ask_vol;
         public int bid_vol;
         public Object ob_ms_timestamp;
-        public int open_price;
+        public double open_price;
         @JsonProperty("yield")
         public Object myyield;
         public int lotsize;
@@ -35,6 +35,39 @@ public class AlorQuoteData {
         public String type;
         public int total_bid_vol;
         public int total_ask_vol;
+
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "symbol='" + symbol + '\'' +
+                    ", exchange='" + exchange + '\'' +
+                    ", description='" + description + '\'' +
+                    ", prev_close_price=" + prev_close_price +
+                    ", last_price=" + last_price +
+                    ", last_price_timestamp=" + last_price_timestamp +
+                    ", change=" + change +
+                    ", change_percent=" + change_percent +
+                    ", high_price=" + high_price +
+                    ", low_price=" + low_price +
+                    ", accruedInt=" + accruedInt +
+                    ", accrued_interest=" + accrued_interest +
+                    ", volume=" + volume +
+                    ", open_interest='" + open_interest + '\'' +
+                    ", ask=" + ask +
+                    ", bid=" + bid +
+                    ", ask_vol=" + ask_vol +
+                    ", bid_vol=" + bid_vol +
+                    ", ob_ms_timestamp=" + ob_ms_timestamp +
+                    ", open_price=" + open_price +
+                    ", myyield=" + myyield +
+                    ", lotsize=" + lotsize +
+                    ", lotvalue=" + lotvalue +
+                    ", facevalue=" + facevalue +
+                    ", type='" + type + '\'' +
+                    ", total_bid_vol=" + total_bid_vol +
+                    ", total_ask_vol=" + total_ask_vol +
+                    '}';
+        }
 
         public String getSymbol() {
             return symbol;
@@ -60,19 +93,19 @@ public class AlorQuoteData {
             this.description = description;
         }
 
-        public int getPrev_close_price() {
+        public double getPrev_close_price() {
             return prev_close_price;
         }
 
-        public void setPrev_close_price(int prev_close_price) {
+        public void setPrev_close_price(double prev_close_price) {
             this.prev_close_price = prev_close_price;
         }
 
-        public int getLast_price() {
+        public double getLast_price() {
             return last_price;
         }
 
-        public void setLast_price(int last_price) {
+        public void setLast_price(double last_price) {
             this.last_price = last_price;
         }
 
@@ -84,11 +117,11 @@ public class AlorQuoteData {
             this.last_price_timestamp = last_price_timestamp;
         }
 
-        public int getChange() {
+        public double getChange() {
             return change;
         }
 
-        public void setChange(int change) {
+        public void setChange(double change) {
             this.change = change;
         }
 
@@ -100,19 +133,19 @@ public class AlorQuoteData {
             this.change_percent = change_percent;
         }
 
-        public int getHigh_price() {
+        public double getHigh_price() {
             return high_price;
         }
 
-        public void setHigh_price(int high_price) {
+        public void setHigh_price(double high_price) {
             this.high_price = high_price;
         }
 
-        public int getLow_price() {
+        public double getLow_price() {
             return low_price;
         }
 
-        public void setLow_price(int low_price) {
+        public void setLow_price(double low_price) {
             this.low_price = low_price;
         }
 
@@ -148,19 +181,19 @@ public class AlorQuoteData {
             this.open_interest = open_interest;
         }
 
-        public int getAsk() {
+        public double getAsk() {
             return ask;
         }
 
-        public void setAsk(int ask) {
+        public void setAsk(double ask) {
             this.ask = ask;
         }
 
-        public int getBid() {
+        public double getBid() {
             return bid;
         }
 
-        public void setBid(int bid) {
+        public void setBid(double bid) {
             this.bid = bid;
         }
 
@@ -188,11 +221,11 @@ public class AlorQuoteData {
             this.ob_ms_timestamp = ob_ms_timestamp;
         }
 
-        public int getOpen_price() {
+        public double getOpen_price() {
             return open_price;
         }
 
-        public void setOpen_price(int open_price) {
+        public void setOpen_price(double open_price) {
             this.open_price = open_price;
         }
 
@@ -269,5 +302,14 @@ public class AlorQuoteData {
 
     public void setGuid(String guid) {
         this.guid = guid;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AlorQuoteData{" +
+                "data=" + data +
+                ", guid='" + guid + '\'' +
+                '}';
     }
 }
