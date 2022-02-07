@@ -71,6 +71,7 @@ public class StocksDataMap {
 
     public StocksDataMap scanForArbitrage() {
         StocksDataMap resStocksDataMap = new StocksDataMap();
+        //TODO check the time - after 23:45 enables mode of top loosers/gainers
         for (Map.Entry<String, StockData> entry : this.stockDataHashMap.entrySet()
         ) {
             if (entry.getValue().getMskAsk() < entry.getValue().getSpbBid()

@@ -6,7 +6,9 @@ import org.apache.camel.component.telegram.model.EditMessageTextMessage;
 import org.apache.camel.component.telegram.model.OutgoingTextMessage;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,27 +38,55 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
                             })
                             .forEach(x -> sorted.put(x.getKey(), x.getValue()));
                     StringBuilder stringBuilder = new StringBuilder();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+                    stringBuilder.append("Updated on: ").append(simpleDateFormat.format(new Date()));
+                    stringBuilder.append("\n");
+                    stringBuilder.append("\n");
                     DecimalFormat df = new DecimalFormat("#.##");
                     for (Map.Entry<String, StockData> entry : sorted.getStockDataHashMap().entrySet()
                     ) {
                         stringBuilder.append(entry.getKey()).append(":");
                         stringBuilder.append("\n");
-                        stringBuilder.append("SPB:").append(entry.getValue().spbBid).append(" / ").append(entry.getValue().spbAsk);
+                        stringBuilder.append("SPB: ")
+                                .append(entry.getValue().spbBid)
+                                .append("@")
+                                .append(entry.getValue().getSpbBidVolume())
+                                .append(" / ")
+                                .append(entry.getValue().spbAsk)
+                                .append("@").
+                                append(entry.getValue().getSpbAskVolume());
                         stringBuilder.append("\n");
-                        stringBuilder.append("MSK:").append(df.format(entry.getValue().mskBid)).append(" / ").append(df.format(entry.getValue().mskAsk));
+                        stringBuilder.append("MSK: ")
+                                .append(df.format(entry.getValue().mskBid))
+                                .append("@")
+                                .append(entry.getValue().getMskBidVolume())
+                                .append(" / ")
+                                .append(df.format(entry.getValue().mskAsk))
+                                .append("@")
+                                .append(entry.getValue().getMskAskVolume());
                         stringBuilder.append("\n");
 
                     }
-                    OutgoingTextMessage msg = new OutgoingTextMessage();
-                    //EditMessageTextMessage edit = new EditMessageTextMessage();
+
+
                     if (sorted.getStockDataHashMap().size() == 0) {
                         stringBuilder.append("loading...");
                     }
-                    msg.setText(stringBuilder.toString());
-                    msg.setParseMode("MARKDOWN");
-                    exchange.getIn().setBody(msg);
+                    //sending message through chat with bpt
+                    //OutgoingTextMessage msg = new OutgoingTextMessage();
+                    //msg.setText(stringBuilder.toString());
+                    //msg.setParseMode("MARKDOWN");
+                    EditMessageTextMessage edit = new EditMessageTextMessage("-1001556322892", 2, "2", stringBuilder.toString(), "MARKDOWN", false, null);
+                    exchange.getIn().setBody(edit);
                 })
-                .to("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI&chatId=47092572");
+                //send message to bot
+                //.to("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI&chatId=47092572");
+
+                //update message in channel
+                .to("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI&chatId=-1001556322892");
+                //  Link for editing message
+                // "https://api.telegram.org/bot5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI/editMessageText?chat_id=-1001556322892&message_id=2&text=\%27test\%27&parse_mode=MarkdownV2"
+
         //TODO
         //форматирование
         //изменение сообщения вместо повторной отправки
