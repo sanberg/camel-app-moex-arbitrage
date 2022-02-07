@@ -1,5 +1,9 @@
 package io.sanberg;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,6 +76,11 @@ public class StocksDataMap {
     public StocksDataMap scanForArbitrage() {
         StocksDataMap resStocksDataMap = new StocksDataMap();
         //TODO check the time - after 23:45 enables mode of top loosers/gainers
+        LocalDateTime mskEnd = LocalDateTime.parse(LocalDate.now().minusDays(1) + "T23:45:00");
+        LocalDateTime mskStart = LocalDateTime.parse(LocalDate.now() + "T07:00:00");
+        if (LocalDateTime.now().compareTo(mskEnd) > 0 && LocalDateTime.now().compareTo(mskStart) < 0) {
+            return resStocksDataMap;
+        }
         for (Map.Entry<String, StockData> entry : this.stockDataHashMap.entrySet()
         ) {
             if (entry.getValue().getMskAsk() < entry.getValue().getSpbBid()

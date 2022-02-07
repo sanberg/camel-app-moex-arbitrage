@@ -7,12 +7,17 @@ import org.apache.camel.component.telegram.model.OutgoingTextMessage;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
+    LocalDateTime mskEnd = LocalDateTime.parse(LocalDate.now().minusDays(1) + "T23:45:00");
+    LocalDateTime mskStart = LocalDateTime.parse(LocalDate.now() + "T07:00:00");
+
     @Override
     public void configure() throws Exception {
         from("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI")
@@ -70,9 +75,13 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
 
 
                     if (sorted.getStockDataHashMap().size() == 0) {
-                        stringBuilder.append("loading...");
+                        if (LocalDateTime.now().compareTo(mskEnd) > 0 && LocalDateTime.now().compareTo(mskStart) < 0) {
+                            stringBuilder.append("Ночь темна и полна ужасов");
+                        } else {
+                            stringBuilder.append("loading...");
+                        }
                     }
-                    //sending message through chat with bpt
+                    //sending message via chat with bpt
                     //OutgoingTextMessage msg = new OutgoingTextMessage();
                     //msg.setText(stringBuilder.toString());
                     //msg.setParseMode("MARKDOWN");
