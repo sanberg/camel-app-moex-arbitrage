@@ -22,7 +22,7 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
     public void configure() {
         from("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI")
                 .log("${header.CamelTelegramChatId}");
-        from("timer:arbitrageScanner?period=10000")
+        from("timer:arbitrageScanner?period=5000&delay=10000")
                 .bean("stocksDataMap", "scanForArbitrage")
                 .log("${body}")
                 .process(exchange -> {
@@ -46,11 +46,11 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
                     stringBuilder.append("Updated on: ").append(simpleDateFormat.format(new Date()));
                     stringBuilder.append("\n");
-                    stringBuilder.append("\n");
+                    stringBuilder.append("\r\n");
                     DecimalFormat df = new DecimalFormat("#.##");
                     for (Map.Entry<String, StockData> entry : sorted.getStockDataHashMap().entrySet()
                     ) {
-                        stringBuilder.append(entry.getKey()).append(":");
+                        stringBuilder.append("*").append(entry.getKey()).append("*").append(":");
                         stringBuilder.append("\n");
                         stringBuilder.append("SPB: ")
                                 .append(entry.getValue().spbBid)
@@ -69,10 +69,9 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
                                 .append(df.format(entry.getValue().mskAsk))
                                 .append("@")
                                 .append(entry.getValue().getMskAskVolume());
-                        stringBuilder.append("\n");
-
+                        stringBuilder.append("\r\n");
+                        stringBuilder.append("\r\n");
                     }
-
 
                     if (sorted.getStockDataHashMap().size() == 0) {
                         if (LocalDateTime.now().compareTo(mskEnd) > 0 && LocalDateTime.now().compareTo(mskStart) < 0) {
@@ -85,7 +84,8 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
                     //OutgoingTextMessage msg = new OutgoingTextMessage();
                     //msg.setText(stringBuilder.toString());
                     //msg.setParseMode("MARKDOWN");
-                    EditMessageTextMessage edit = new EditMessageTextMessage("-1001556322892", 2, "2", stringBuilder.toString(), "MARKDOWN", false, null);
+                    EditMessageTextMessage edit = new EditMessageTextMessage("-1001556322892", 2,
+                            "2", stringBuilder.toString(), "MARKDOWN", false, null);
                     exchange.getIn().setBody(edit);
                 })
                 //send message to bot

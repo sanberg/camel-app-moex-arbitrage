@@ -85,7 +85,7 @@ public class StocksDataMap {
         ) {
             if (entry.getValue().getMskAsk() < entry.getValue().getSpbBid()
                     && (entry.getValue().getSpbBid() - entry.getValue().getMskAsk())
-                            / entry.getValue().getMskAsk() > 0.0003) {
+                            / entry.getValue().getMskAsk() > 0.0008) {
                 resStocksDataMap.put(entry.getKey(), entry.getValue());
             }
             //resStocksDataMap.put(entry.getKey(), entry.getValue()); //TODO Remove after testing
