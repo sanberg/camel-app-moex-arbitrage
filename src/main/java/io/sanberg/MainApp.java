@@ -18,14 +18,14 @@ public class MainApp {
 
         //Alor
 
-//        AlorTokenManagerRouteBuilder alorTokenManagerRouteBuilder = new AlorTokenManagerRouteBuilder();
-//        main.configure().addRoutesBuilder(alorTokenManagerRouteBuilder);
-//        main.bind("alorToken", alorTokenManagerRouteBuilder);
-//
-//        main.configure().addRoutesBuilder(new AlorQuoteDataMOEXSubscribeByTickerRouteBuilder());
-//        main.configure().addRoutesBuilder(new AlorQuoteDataSPBSubscribeByTickerRouteBuilder());
-//        main.configure().addRoutesBuilder(new AlorQuoteDataConsumerRouteBuilder());
-//        main.configure().addRoutesBuilder(new TelegramArbitrageNotifierRouteBuilder());
+        AlorTokenManagerRouteBuilder alorTokenManagerRouteBuilder = new AlorTokenManagerRouteBuilder();
+        main.configure().addRoutesBuilder(alorTokenManagerRouteBuilder);
+        main.bind("alorToken", alorTokenManagerRouteBuilder);
+
+        main.configure().addRoutesBuilder(new AlorQuoteDataMOEXSubscribeByTickerRouteBuilder());
+        main.configure().addRoutesBuilder(new AlorQuoteDataSPBSubscribeByTickerRouteBuilder());
+        main.configure().addRoutesBuilder(new AlorQuoteDataConsumerRouteBuilder());
+        main.configure().addRoutesBuilder(new TelegramArbitrageNotifierRouteBuilder());
 
         //Alpaca
 

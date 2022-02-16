@@ -21,6 +21,8 @@ public class AlpacaConsumerUSRouteBuilder extends RouteBuilder {
                         .unmarshal((new ListJacksonDataFormat(AlpacaStreamingData.class)))
                         //.log("unmarshalled quote: ${body}")
                         .to("bean:stocksDataMap?method=putAlpacaStreamingData(${body})")
+                .otherwise()
+                    .log("Received from alpaca: ${body}")
                 .endChoice();
     }
 }

@@ -71,11 +71,11 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
                                 .append(entry.getValue().getMskAskVolume());
                         stringBuilder.append("\n");
                         stringBuilder.append("US: ")
-                                .append(entry.getValue().usBid)
+                                .append(entry.getValue().getUsBid())
                                 .append("@")
                                 .append(entry.getValue().getUsBidVolume())
                                 .append(" / ")
-                                .append(entry.getValue().usAsk)
+                                .append(entry.getValue().getUsAsk())
                                 .append("@")
                                 .append(entry.getValue().getUsAskVolume());
                         stringBuilder.append("\r\n");

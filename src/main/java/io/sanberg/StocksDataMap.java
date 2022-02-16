@@ -104,7 +104,6 @@ public class StocksDataMap {
 
     public StocksDataMap scanForArbitrage() {
         StocksDataMap resStocksDataMap = new StocksDataMap();
-        //TODO check the time - after 23:45 enables mode of top loosers/gainers
         LocalDateTime mskEnd = LocalDateTime.parse(LocalDate.now().minusDays(1) + "T23:45:00");
         LocalDateTime mskStart = LocalDateTime.parse(LocalDate.now() + "T07:00:00");
         if (LocalDateTime.now().compareTo(mskEnd) > 0 && LocalDateTime.now().compareTo(mskStart) < 0) {
@@ -117,12 +116,9 @@ public class StocksDataMap {
                     / entry.getValue().getMskAsk() > 0.0008) {
                 resStocksDataMap.put(entry.getKey(), entry.getValue());
             }
-            //resStocksDataMap.put(entry.getKey(), entry.getValue()); //TODO Remove after testing
         }
         return resStocksDataMap;
     }
-    //public int putUsQuoteData(String ticker, )
-
 
     @Override
     public String toString() {

@@ -2,6 +2,7 @@ package io.sanberg;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ public class AlpacaStreamingData {
     @JsonProperty("S")
     public String symbol;
     @JsonProperty("i")
-    public int tradeId;
+    public BigInteger tradeId;
     @JsonProperty("x")
     public String exchangeCode;
     @JsonProperty("p")
@@ -74,11 +75,11 @@ public class AlpacaStreamingData {
         this.symbol = symbol;
     }
 
-    public int getTradeId() {
+    public BigInteger getTradeId() {
         return tradeId;
     }
 
-    public void setTradeId(int tradeId) {
+    public void setTradeId(BigInteger tradeId) {
         this.tradeId = tradeId;
     }
 
