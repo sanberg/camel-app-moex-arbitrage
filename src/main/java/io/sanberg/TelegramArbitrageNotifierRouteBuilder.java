@@ -69,6 +69,15 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
                                 .append(df.format(entry.getValue().mskAsk))
                                 .append("@")
                                 .append(entry.getValue().getMskAskVolume());
+                        stringBuilder.append("\n");
+                        stringBuilder.append("US: ")
+                                .append(entry.getValue().usBid)
+                                .append("@")
+                                .append(entry.getValue().getUsBidVolume())
+                                .append(" / ")
+                                .append(entry.getValue().usAsk)
+                                .append("@")
+                                .append(entry.getValue().getUsAskVolume());
                         stringBuilder.append("\r\n");
                         stringBuilder.append("\r\n");
                     }

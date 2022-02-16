@@ -12,25 +12,29 @@ public class MainApp {
      */
     public static void main(String... args) throws Exception {
         Main main = new Main();
-        //Alor
-        AlorTokenManagerRouteBuilder alorTokenManagerRouteBuilder = new AlorTokenManagerRouteBuilder();
-        main.configure().addRoutesBuilder(alorTokenManagerRouteBuilder);
-        main.bind("alorToken", alorTokenManagerRouteBuilder);
         StocksDataMap stocksDataMap = new StocksDataMap();
         main.bind("stocksDataMap", stocksDataMap);
-        main.configure().addRoutesBuilder(new AlorQuoteDataMOEXSubscribeByTickerRouteBuilder());
-        main.configure().addRoutesBuilder(new AlorQuoteDataSPBSubscribeByTickerRouteBuilder());
-        main.configure().addRoutesBuilder(new AlorQuoteDataConsumerRouteBuilder());
-        main.configure().addRoutesBuilder(new TelegramArbitrageNotifierRouteBuilder());
+
+        //Alor
+
+//        AlorTokenManagerRouteBuilder alorTokenManagerRouteBuilder = new AlorTokenManagerRouteBuilder();
+//        main.configure().addRoutesBuilder(alorTokenManagerRouteBuilder);
+//        main.bind("alorToken", alorTokenManagerRouteBuilder);
+//
+//        main.configure().addRoutesBuilder(new AlorQuoteDataMOEXSubscribeByTickerRouteBuilder());
+//        main.configure().addRoutesBuilder(new AlorQuoteDataSPBSubscribeByTickerRouteBuilder());
+//        main.configure().addRoutesBuilder(new AlorQuoteDataConsumerRouteBuilder());
+//        main.configure().addRoutesBuilder(new TelegramArbitrageNotifierRouteBuilder());
+
         //Alpaca
-        //MyCustomAsyncHttpClientImpl myCustomAsyncHttpClientImpl = new MyCustomAsyncHttpClientImpl();
-        //main.bind("myCustomAsyncHttpClientImpl", myCustomAsyncHttpClientImpl);
-        //main.configure().addRoutesBuilder(new AlpacaConsumerUSRouteBuilder());
-        //main.configure().addRoutesBuilder(new AlpacaSubscriptionByTickerRouteBuilder());
+
+        MyCustomAsyncHttpClientImpl myCustomAsyncHttpClientImpl = new MyCustomAsyncHttpClientImpl();
+        main.bind("myCustomAsyncHttpClientImpl", myCustomAsyncHttpClientImpl);
+        main.configure().addRoutesBuilder(new AlpacaConsumerUSRouteBuilder());
+        main.configure().addRoutesBuilder(new AlpacaSubscriptionByTickerRouteBuilder());
 
         main.run(args);
     }
-
 
 
 }

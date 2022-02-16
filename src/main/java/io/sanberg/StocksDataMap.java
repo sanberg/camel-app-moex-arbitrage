@@ -1,12 +1,12 @@
 package io.sanberg;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class StocksDataMap {
     private final HashMap<String, StockData> stockDataHashMap;
@@ -73,6 +73,35 @@ public class StocksDataMap {
         return 0;
     }
 
+    public int putAlpacaStreamingData(List<AlpacaStreamingData> alpacaStreamingDataList) {
+        try {
+            String ticker = alpacaStreamingDataList.get(0).getSymbol();
+            List<AlpacaStreamingData> trades = alpacaStreamingDataList.stream().filter(row -> Objects.equals(row.getMessageType(), "t"))
+                    .collect(Collectors.toList());
+            List<AlpacaStreamingData> quotes = alpacaStreamingDataList.stream().filter(row -> Objects.equals(row.getMessageType(), "q"))
+                    .collect(Collectors.toList());
+            AlpacaStreamingData lastTrade;
+            AlpacaStreamingData lastQuote;
+            StockData stockData = stockDataHashMap.get(ticker) == null ? new StockData() : stockDataHashMap.get(ticker);
+            if (trades.size() > 0) {
+                lastTrade = trades.get(trades.size() - 1);
+                stockData.setUsLastTrade(lastTrade.getTradePrice());
+            }
+            if (quotes.size() > 0) {
+                lastQuote = quotes.get(quotes.size() - 1);
+                stockData.setUsAsk(lastQuote.getAskPrice());
+                stockData.setUsAskVolume(lastQuote.getAskSize());
+                stockData.setUsBid(lastQuote.getBidPrice());
+                stockData.setUsBidVolume(lastQuote.getBidSize());
+            }
+            stockDataHashMap.put(ticker, stockData);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        return 0;
+    }
+
     public StocksDataMap scanForArbitrage() {
         StocksDataMap resStocksDataMap = new StocksDataMap();
         //TODO check the time - after 23:45 enables mode of top loosers/gainers
@@ -85,7 +114,7 @@ public class StocksDataMap {
         ) {
             if (entry.getValue().getMskAsk() < entry.getValue().getSpbBid()
                     && (entry.getValue().getSpbBid() - entry.getValue().getMskAsk())
-                            / entry.getValue().getMskAsk() > 0.0008) {
+                    / entry.getValue().getMskAsk() > 0.0008) {
                 resStocksDataMap.put(entry.getKey(), entry.getValue());
             }
             //resStocksDataMap.put(entry.getKey(), entry.getValue()); //TODO Remove after testing

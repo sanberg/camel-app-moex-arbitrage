@@ -1,9 +1,7 @@
 package io.sanberg;
 
-import io.netty.handler.codec.http.HttpMethod;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jackson.ListJacksonDataFormat;
 
 public class AlpacaConsumerUSRouteBuilder extends RouteBuilder {
     @Override
@@ -13,6 +11,16 @@ public class AlpacaConsumerUSRouteBuilder extends RouteBuilder {
                 .constant("PKE5PQRGSKVQD6LQRJRK")
                 .setHeader("Apca-Api-Secret-Key")
                 .constant("yQ2lOJH8zFU1UVH4crFf0CMqe7Hmq7bTUTON4qX4")
-                .log("received from alpaca: + ${body}");
+                .log("received from alpaca: + ${body}")
+                .choice()
+                    .when(body().startsWith("[{\"T\":\"t\""))
+                        .unmarshal((new ListJacksonDataFormat(AlpacaStreamingData.class)))
+                        //.log("unmarshalled trade: ${body}")
+                        .to("bean:stocksDataMap?method=putAlpacaStreamingData(${body})")
+                    .when(body().startsWith("[{\"T\":\"q\""))
+                        .unmarshal((new ListJacksonDataFormat(AlpacaStreamingData.class)))
+                        //.log("unmarshalled quote: ${body}")
+                        .to("bean:stocksDataMap?method=putAlpacaStreamingData(${body})")
+                .endChoice();
     }
 }
