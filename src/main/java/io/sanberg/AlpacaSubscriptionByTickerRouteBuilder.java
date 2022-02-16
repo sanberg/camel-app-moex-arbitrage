@@ -24,7 +24,6 @@ public class AlpacaSubscriptionByTickerRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() {
-        System.out.println(tickersList);
         //    subscribe to specified ticker
 //        for (String ticker : tickers) {
 //            from("timer:US_sub_" + ticker + "?delay=5000&repeatCount=1")//for ping
@@ -40,7 +39,6 @@ public class AlpacaSubscriptionByTickerRouteBuilder extends RouteBuilder {
 //                            "}"))
 //                    .to("ahc-wss://stream.data.alpaca.markets/v2/sip?client=#myCustomAsyncHttpClientImpl");
 //        }
-        System.out.println(tickersList);
         from("timer:US_sub_" + "alpaca" + "?delay=5000&repeatCount=1")//for ping
                 .setBody(simple("{\n" +
                         "    \"action\": \"subscribe\",\n" +

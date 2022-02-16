@@ -1,6 +1,7 @@
 package io.sanberg;
 
 import org.apache.camel.main.Main;
+import org.asynchttpclient.DefaultAsyncHttpClientConfig;
 
 /**
  * A Camel Application
@@ -28,7 +29,13 @@ public class MainApp {
 
         //Alpaca
 
-        MyCustomAsyncHttpClientImpl myCustomAsyncHttpClientImpl = new MyCustomAsyncHttpClientImpl();
+        //custom httpclient for ws auth by headers and custom config of buffer & frames
+        MyCustomAsyncHttpClientImpl myCustomAsyncHttpClientImpl = new MyCustomAsyncHttpClientImpl(
+                new DefaultAsyncHttpClientConfig.Builder()
+                        .setMaxRequestRetry(0)
+                        .setWebSocketMaxBufferSize(2621440)
+                        .setWebSocketMaxFrameSize(2621440).build());
+
         main.bind("myCustomAsyncHttpClientImpl", myCustomAsyncHttpClientImpl);
         main.configure().addRoutesBuilder(new AlpacaConsumerUSRouteBuilder());
         main.configure().addRoutesBuilder(new AlpacaSubscriptionByTickerRouteBuilder());

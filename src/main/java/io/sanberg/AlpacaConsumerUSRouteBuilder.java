@@ -11,7 +11,7 @@ public class AlpacaConsumerUSRouteBuilder extends RouteBuilder {
                 .constant("PKE5PQRGSKVQD6LQRJRK")
                 .setHeader("Apca-Api-Secret-Key")
                 .constant("yQ2lOJH8zFU1UVH4crFf0CMqe7Hmq7bTUTON4qX4")
-                .log("received from alpaca: + ${body}")
+                //.log("received from alpaca: + ${body}")
                 .choice()
                     .when(body().startsWith("[{\"T\":\"t\""))
                         .unmarshal((new ListJacksonDataFormat(AlpacaStreamingData.class)))
