@@ -16,7 +16,7 @@ public class MyCustomAsyncHttpClientImpl extends DefaultAsyncHttpClient {
     @Override
     public BoundRequestBuilder prepareGet(String url) {
         String id = "PKE5PQRGSKVQD6LQRJRK";
-        String key = "yQ2lOJH8zFU1UVH4crFf0CMqe7Hmq7bTUTON4qX4";
+        String key = "ZZ";
         HttpHeaders httpHeaders = new DefaultHttpHeaders();
         httpHeaders.set("Apca-Api-Key-Id", id);
         httpHeaders.set("Apca-Api-Secret-Key", key);
