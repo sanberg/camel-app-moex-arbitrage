@@ -16,7 +16,7 @@ public class AlorTokenManagerRouteBuilder extends RouteBuilder {
                 .log("Refreshing Alor token")
                 .setHeader(Exchange.HTTP_METHOD)
                 .constant(HttpMethod.POST)
-                .to("https://oauth.alor.ru/refresh?token=4dacc9d0-ac35-4caa-bc6d-f38c0a876e7d")
+                .to("https://oauth.alor.ru/refresh?token=ZZ")
                 .unmarshal().json(AlorToken.class)
                 .process(exchange -> {
                     AlorToken response = exchange.getIn().getBody(AlorToken.class);
