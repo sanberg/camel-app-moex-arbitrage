@@ -10,7 +10,7 @@ public class AlpacaConsumerUSRouteBuilder extends RouteBuilder {
                 .setHeader("Apca-Api-Key-Id")
                 .constant("PKE5PQRGSKVQD6LQRJRK")
                 .setHeader("Apca-Api-Secret-Key")
-                .constant("yQ2lOJH8zFU1UVH4crFf0CMqe7Hmq7bTUTON4qX4")
+                .constant("ZZ")
                 //.log("received from alpaca: + ${body}")
                 .choice()
                     .when(body().startsWith("[{\"T\":\"t\""))
