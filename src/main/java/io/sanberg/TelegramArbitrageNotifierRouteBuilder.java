@@ -105,10 +105,5 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
                 //  Link for editing message
                 // "https://api.telegram.org/bot5000137095:ZZ/editMessageText?chat_id=-1001556322892&message_id=2&text=\%27test\%27&parse_mode=MarkdownV2"
 
-        //TODO
-        //форматирование
-        //изменение сообщения вместо повторной отправки
-        //сохранить chatid, написавших команду subscribe боту
-        //в цикле проходить по chatid и разослать всем
     }
 }
