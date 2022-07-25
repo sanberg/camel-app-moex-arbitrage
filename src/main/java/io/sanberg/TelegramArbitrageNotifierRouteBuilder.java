@@ -20,7 +20,7 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI")
+        from("telegram:bots?authorizationToken=5000137095:ZZ")
                 .log("${header.CamelTelegramChatId}");
         from("timer:arbitrageScanner?period=5000&delay=10000")
                 .bean("stocksDataMap", "scanForArbitrage")
@@ -98,12 +98,12 @@ public class TelegramArbitrageNotifierRouteBuilder extends RouteBuilder {
                     exchange.getIn().setBody(edit);
                 })
                 //send message to bot
-                //.to("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI&chatId=47092572");
+                //.to("telegram:bots?authorizationToken=5000137095:ZZ&chatId=47092572");
 
                 //update message in channel
-                .to("telegram:bots?authorizationToken=5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI&chatId=-1001556322892");
+                .to("telegram:bots?authorizationToken=5000137095:ZZ&chatId=-1001556322892");
                 //  Link for editing message
-                // "https://api.telegram.org/bot5000137095:AAFws5eJ7DKLSRDBqKAlLrfDPXz19sNBmGI/editMessageText?chat_id=-1001556322892&message_id=2&text=\%27test\%27&parse_mode=MarkdownV2"
+                // "https://api.telegram.org/bot5000137095:ZZ/editMessageText?chat_id=-1001556322892&message_id=2&text=\%27test\%27&parse_mode=MarkdownV2"
 
         //TODO
         //форматирование
