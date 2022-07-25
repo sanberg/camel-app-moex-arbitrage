@@ -50,10 +50,6 @@ public class AlpacaSubscriptionByTickerRouteBuilder extends RouteBuilder {
                         "        \"" + tickersList + "\"\n" +
                         "    ]\n" +
                         "}"))
-//                    .setHeader("Apca-Api-Key-Id")
-//                    .constant("PKE5PQRGSKVQD6LQRJRK")
-//                    .setHeader("Apca-Api-Secret-Key")
-//                    .constant("yQ2lOJH8zFU1UVH4crFf0CMqe7Hmq7bTUTON4qX4")
                 .to("ahc-wss://stream.data.alpaca.markets/v2/sip?client=#myCustomAsyncHttpClientImpl");
     }
 }
